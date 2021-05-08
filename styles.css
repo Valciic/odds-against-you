@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-size: 1.25rem;
+}
+.title {
+    font-size: 3rem;
+    text-align: center;
+    margin: 0.2em 0;
+}
+.description {
+    width: 75%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+input {
+    text-align: center;
+    width: 10rem;
+    display: inline-block;
+    margin: 0 .7em;
+    padding: .3em;
+    font-size: 1.5rem;
+}
+input::placeholder {
+    font-size: 0.7rem;
+}
+input:focus::placeholder {
+    color: transparent;
+}
+#user-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.slash {
+    font-size: 3rem;
+}
+.value-container {
+    width: 75%;
+    margin: 2em auto 1em;
+    border: 1px red solid;
+    display: flex;
+    justify-content: center;
+    font-size: 0.8rem;
+    padding: 1em;
+    
+}
+.message {
+    text-align: center;
+    font-size: 0.9rem;
+    margin: 1em auto;
+}
+.btn {
+    display: block;
+    margin: 0 auto;
+    font-size: 0.8rem;
+    padding: 1em;
+    text-transform: uppercase;
+}
+.hide-btn{
+    display: none;
+}
+.show-btn {
+    display: block;
+}
+.grid {
+    width: 90%;
+    border: 4px rgb(14, 68, 7) dashed;
+    margin: 1em auto;
+    padding: 0.2em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.square {
+    margin: 2px;
+    transition: 0.05s ease-in-out;
+    cursor: pointer;
+    border: 5px blue solid;
+}
+.square:hover {
+    box-shadow: 2px 2px black;
+    transform: scale(1.2);;
+}
+.square:after, .square:before {
+    content: '';
+    width: 30px;
+    height: 5px;
+    background: green;
+    position: absolute;
+    opacity: 0;
+}
+.square:after {
+    transform: rotate(45deg) translateY(10px);
+}
+
+.square:before {
+    transform: rotate(-45deg) translate(-10px);
+}
+.correct-square {
+    background: red;
+    border: 1px green dotted;
+    width: 20px;
+    height: 20px;
+}

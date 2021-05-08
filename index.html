@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Odds are against you!</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1 class="title">Visualize odds</h1>
+      <p class="description">
+        This little app is meant to visually show odds in style
+        <em>1 out of ...</em>. Enter a number in the input field and click the
+        button. Afterwards try to find hidden red square in the sea of blue
+        ones. You only have one chance!
+      </p>
+      <div class="value-container">
+        <input
+          type="number"
+          name="user-value"
+          id="user-value"
+          value="1"
+          readonly
+          disabled
+        />
+        <p class="slash"><strong>/</strong></p>
+        <input
+          type="number"
+          name="odds-value"
+          id="odds-value"
+          placeholder="Enter your number here"
+        />
+      </div>
+      <p class="message"></p>
+      <button class="btn lets-do-this show-btn">Lets do this!</button>
+      <button class="btn play-again hide-btn">Let's try again!</button>
+    </header>
+    <main>
+      <div class="grid">
+      </div>
+    </main>
+    <footer></footer>
+    <script src="scripts.js"></script>
+  </body>
+</html>
