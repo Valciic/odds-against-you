@@ -9,42 +9,39 @@
   </head>
   <body>
     <header>
-      <h1 class="title">Visualize odds</h1>
+      <h1 class="title" id="top-of-page">Can you beat the odds?</h1>
       <p class="description">
         This little app is meant to visually show odds in style
-        <em>1 out of ...</em>. Enter a number in the input field and click the
+        <em>1 in ...</em>. Enter a number in the input field and click the
         button. Afterwards try to find hidden red square in the sea of blue
         ones. You only have one chance!
       </p>
+      <a href="#correct-square" class="btn show-correct-square">Where is it then?</a>
+      <div class="card">Nop! That is not the red square!</div>
       <div class="value-container">
-        <input
-          type="number"
-          name="user-value"
-          id="user-value"
-          value="1"
-          readonly
-          disabled
-        />
+        <input type="text" id="user-value" value="1" disabled>
         <p class="word-in"><strong>in</strong></p>
         <input
           type="number"
           name="odds-value"
           id="odds-value"
-          placeholder="Enter your number here"
+          tabindex="0"
           autofocus
+          placeholder="Enter your number here"
+          min="2"
         />
       </div>
       <p class="message" id="message"></p>
       <p class="message" id="arrow">↓</p>
-      <button class="btn lets-do-this show-btn" tabindex="0">Lets do this!</button>
-      <button class="btn play-again hide-btn"tabindex="0">Let's try again!</button>
+      <button class="btn lets-do-this show-btn" tabindex="1">Lets do this!</button>
+      <button class="btn play-again hide-btn"tabindex="1">Try again?</button>
     </header>
     <main>
-      <div class="grid">
-
-      </div>
     </main>
-    <footer></footer>
+    <footer>
+      <p> <span class="my-name">&copy; Created by Valciic</span> <script>document.write(new Date().getFullYear())</script> </p>
+      <a href="#top-of-page" id="to-top-btn" tabindex="1">To the top</a>
+    </footer>
     <script src="scripts.js"></script>
   </body>
 </html>
