@@ -17,9 +17,17 @@ let squaresArray = [];
 
 let guessIsMade = false;
 let randomNumber = 0;
-let sizeOfGameField = 0;
-// TODO: figrue out the game start with default field and after give opportunity to user to play again.
+let sizeOfGameField = 107;
+// TODO: figure out the game start with default field and after give opportunity to user to play again.
 inputValue.focus();
+window.onload = (e) => {
+  createGameField(sizeOfGameField);
+  updateMessageToUser("Find the red square!");
+  arrow.style.display = "block";
+  inputValue.style.color = "#fff";
+  inputValue.value = sizeOfGameField;
+  playBtn.style.display = 'none';
+}
 playBtn.addEventListener("click", function () {
   if (inputValueIsValidated(inputValue.value)) {
     sizeOfGameField = Math.round(inputValue.value);
@@ -70,15 +78,16 @@ function inputValueIsValidated(value) {
     updateMessageToUser("Only numbers allowed!")
     return false;
   }
-  
   return true;
 }
 
 function checkAnswer(e) {
   if (guessIsMade && e.target.classList.contains("square")) {
     displayPlayAgainMsg();
+    playBtn.style.display = "none";
     return;
   }
+  
   if (e.target.classList.contains("square")) {
     const currentSquare = e.target;
     const correctSquare = squaresArray[randomNumber];
@@ -88,9 +97,10 @@ function checkAnswer(e) {
     } else {
       updateMessageToUser(message.wrongGuess);
       displayWrongSquare(currentSquare);
-      checkAreHelpingBannersNeeded(correctSquare, e);
+      checkAreHelpingBannersNeeded(correctSquare);
     }
     guessIsMade = true;
+    playBtn.style.display = "none";
     toggleButton(playBtn);
     toggleButton(replayBtn);
   }
@@ -111,15 +121,26 @@ function createSquares(number) {
 
 function resetGame() {
   const grid = document.querySelector('.grid');
+  const squares = document.querySelectorAll('.square');
+  const yellowBtn = document.querySelector(".show-correct-square");
+  const card = document.querySelector('.card');
+  if (document.body.contains(yellowBtn)) document.body.removeChild(yellowBtn);
+  if( document.body.contains(card)) document.body.removeChild(card);
+  squares.forEach(square => grid.removeChild(square));
   main.removeChild(grid);
   toggleButton(replayBtn);
   toggleButton(playBtn);
+  guessIsMade = false;
+  playBtn.style.display = "block";
   playBtn.textContent = "Let's do this!",
   playBtn.disabled = false;
   messageToUser.textContent = "";
   arrow.style.display = "none";
   inputValue.disabled = false;
+  inputValue.style.color = "#000";
+  inputValue.value = "";
   inputValue.focus();
+  squaresArray.length = 0;
 }
 
 function updateMessageToUser(message) {
