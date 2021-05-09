@@ -17,39 +17,65 @@ let squaresArray = [];
 
 let guessIsMade = false;
 let randomNumber = 0;
-let playersNumber = 0;
-
+let sizeOfGameField = 0;
+// TODO: figrue out the game start with default field and after give opportunity to user to play again.
 inputValue.focus();
-playBtn.addEventListener("click", createGameField);
+playBtn.addEventListener("click", function () {
+  if (inputValueIsValidated(inputValue.value)) {
+    sizeOfGameField = Math.round(inputValue.value);
+    createGameField(sizeOfGameField);
+  }
+
+});
 inputValue.addEventListener("keyup", (e) => {
-  if (e.key === "Enter") createGameField();
+  const keyStroke = e.key;
+  console.log({ keyStroke });
+  if (e.key === "Enter") {
+    sizeOfGameField = Math.round(inputValue.value);
+    if (inputValueIsValidated(sizeOfGameField)) {
+      createGameField(sizeOfGameField);
+    }
+  }
 });
 replayBtn.addEventListener("click", resetGame);
 replayBtn.addEventListener("keyup", (e) => {
   if (e.key === "Enter") resetGame;
 });
+window.addEventListener("click", checkAnswer);
+window.addEventListener("keyup", (e) => {
+  if (e.key === "Enter") checkAnswer(e);
+});
 
-function createGameField() {
-  if (!inputValue.value) {
-    updateMessageToUser(message.inputFieldEmpty);
-    inputValue.focus();
-    return;
-  }
+function createGameField(numberOfSquares) {
   playBtn.disabled = "disabled";
   playBtn.textContent = "Look for the red square";
   updateMessageToUser(message.takeAGuess);
-  playersNumber = Math.round(inputValue.value);
   disableInputField(inputValue);
-  createSquares(playersNumber);
-  randomNumber = chooseRandomNumber(playersNumber);
-  window.addEventListener("click", checkAnswer);
-  window.addEventListener("keyup", (e) => {
-    if (e.key === "Enter") checkAnswer(e);
-  });
+  createSquares(numberOfSquares);
+  randomNumber = chooseRandomNumber(numberOfSquares);
+}
+
+function inputValueIsValidated(value) {
+  if (!value) {
+    updateMessageToUser(message.inputFieldEmpty);
+    inputValue.focus();
+    return false;
+  }
+  if (Math.round(value) < 2) {
+    updateMessageToUser(message.valueGreaterThanTwo);
+    inputValue.focus();
+    return false;
+  }
+  if (parseInt(value) === NaN) {
+    updateMessageToUser("Only numbers allowed!")
+    return false;
+  }
+  
+  return true;
 }
 
 function checkAnswer(e) {
-  if (guessIsMade) {
+  if (guessIsMade && e.target.classList.contains("square")) {
     displayPlayAgainMsg();
     return;
   }
@@ -84,7 +110,16 @@ function createSquares(number) {
 }
 
 function resetGame() {
-  location.reload();
+  const grid = document.querySelector('.grid');
+  main.removeChild(grid);
+  toggleButton(replayBtn);
+  toggleButton(playBtn);
+  playBtn.textContent = "Let's do this!",
+  playBtn.disabled = false;
+  messageToUser.textContent = "";
+  arrow.style.display = "none";
+  inputValue.disabled = false;
+  inputValue.focus();
 }
 
 function updateMessageToUser(message) {
@@ -94,7 +129,7 @@ function displayPlayAgainMsg() {
   messageToUser.textContent = message.playAgain;
   arrow.style.display = "block";
   messageToUser.style.fontSize = "1rem";
-  setTimeout(()=> {
+  setTimeout(() => {
     messageToUser.style.fontSize = "0.9rem";
   }, 400);
 }

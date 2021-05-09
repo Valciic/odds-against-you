@@ -4,6 +4,7 @@ export const hello = () => {
 
 export const message = {
     inputFieldEmpty: "Enter number in the input field",
+    valueGreaterThanTwo: "Common! Challenge yourself!! Play with at least \"2\" squares",
     takeAGuess: "Ok, now try your luck - find where the red square has hidden!",
     wrongGuess: "Odds are against you!!!",
     luckyGuess: "Wow! That was good guess indeed! Go buy a lottery ticket!",
