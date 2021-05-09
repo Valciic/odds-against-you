@@ -67,7 +67,6 @@ function checkAnswer(e) {
     guessIsMade = true;
     toggleButton(playBtn);
     toggleButton(replayBtn);
-    replayBtn.focus();
   }
 }
 
