@@ -18,14 +18,14 @@ let squaresArray = [];
 let guessIsMade = false;
 let randomNumber = 0;
 let sizeOfGameField = 107;
-// TODO: figure out the game start with default field and after give opportunity to user to play again.
+
 inputValue.focus();
 window.onload = (e) => {
   createGameField(sizeOfGameField);
   updateMessageToUser("Find the red square!");
   arrow.style.display = "block";
-  inputValue.style.color = "#fff";
   inputValue.value = sizeOfGameField;
+  inputValue.disabled = false;
   playBtn.style.display = 'none';
 }
 playBtn.addEventListener("click", function () {
