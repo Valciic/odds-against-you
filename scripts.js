@@ -24,8 +24,6 @@ window.onload = (e) => {
   createGameField(sizeOfGameField);
   updateMessageToUser("Find the red square!");
   arrow.style.display = "block";
-  inputValue.value = sizeOfGameField;
-  inputValue.disabled = false;
   playBtn.style.display = 'none';
 }
 playBtn.addEventListener("click", function () {
