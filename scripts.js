@@ -17,7 +17,7 @@ let squaresArray = [];
 
 let guessIsMade = false;
 let randomNumber = 0;
-let sizeOfGameField = 107;
+let sizeOfGameField = 366;
 
 inputValue.focus();
 window.onload = (e) => {
