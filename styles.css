@@ -22,6 +22,8 @@ body {
   width: 75%;
   margin: 0 auto;
   max-width: 645px;
+  text-align: left;
+  padding: 0.5em;
 }
 
 /* ================
@@ -287,6 +289,24 @@ footer {
   outline: none;
   box-shadow: 0 0 0 3px #fff, 0 0 0 6px blue;
   border-radius: 5px;
+}
+
+@media (max-width: 500px) {
+  body {
+    font-size: 14px;
+  }
+  .value-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #user-value {
+    width: 50%;
+  }
+  #odds-value {
+    font-size: 0.9rem;
+    padding: 0.4em;
+  }
 }
 
 
