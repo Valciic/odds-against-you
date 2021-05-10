@@ -20,38 +20,30 @@
       <div class="text-container">
         <p class="description">
           Odds of you finding the red square in the field of blue ones are
-          <strong>1 in 366</strong>. The same as getting in a car accident on a 1000
-          miles trip! Can you beat these odds?
+          <strong>1 in <span id="game-size"></span></strong> (<em class="percent-value">0.3%</em> ). Can you do it?
         </p>
-        <ul>
-          <li>Click one of the squares to flip it!</li>
-          <li>
-            You can change the number to increase or decrease your odds! Check
-            <a href="https://injuryfacts.nsc.org/all-injuries/preventable-death-overview/odds-of-dying/" target="_blank" rel="noopener noreferrer" class="stats-link">these stats</a>  for some inspiration!
-          </li>
-        </ul>
+      </div>
+      <div class="action-container">
+        <div class="value-container">
+          <input type="text" id="user-value" value="1" disabled />
+          <p class="word-in"><strong>in</strong></p>
+          <input
+            type="number"
+            name="odds-value"
+            id="odds-value"
+            tabindex="0"
+            placeholder="Enter your number here"
+            min="2"
+            pattern="/^-?\d+\.?\d*$/"
+            onKeyPress="if(this.value.length==5) return false;"
+          />
+        </div>
+        <button id="btn" class="hide-btn show-btn play">Go!</button>
       </div>
 
-      <div class="value-container">
-        <input type="text" id="user-value" value="1" disabled />
-        <p class="word-in"><strong>in</strong></p>
-        <input
-          type="number"
-          name="odds-value"
-          id="odds-value"
-          tabindex="0"
-          placeholder="Enter your number here"
-          min="2"
-          pattern="/^-?\d+\.?\d*$/"
-          onKeyPress="if(this.value.length==6) return false;"
-        />
-      </div>
-      <p class="message" id="message"></p>
-      <p class="message" id="arrow">↓</p>
-      <button class="btn lets-do-this show-btn" tabindex="0">
-        Lets do this!
-      </button>
-      <button class="btn play-again hide-btn" tabindex="0">Try again?</button>
+      <ul>
+        <li id="message"></li>
+      </ul>
     </main>
     <footer>
       <p>
@@ -60,7 +52,7 @@
           document.write(new Date().getFullYear());
         </script>
       </p>
-      <a href="#odds-value" id="to-top-btn" tabindex="0">To the top</a>
+      <!-- <a href="#odds-value" id="to-top-btn" tabindex="0">To the top</a> -->
     </footer>
     <script src="scripts.js" type="module"></script>
   </body>
