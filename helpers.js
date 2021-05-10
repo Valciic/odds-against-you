@@ -13,7 +13,7 @@ export const message = {
   enterYourOwnNumber: "Create your own odds!"
 };
 
-function isElementInViewport(el) {
+export function isElementInViewport(el) {
   var rect = el.getBoundingClientRect();
   return (
     rect.top >= 0 &&
@@ -22,31 +22,6 @@ function isElementInViewport(el) {
       (window.innerHeight || document.documentElement.clientHeight) &&
     rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
-}
-
-export function checkAreHelpingBannersNeeded(correctSquare) {
-  if (!isElementInViewport(correctSquare)) {
-    createHelpingBanners();
-  }
-}
-
-function createHelpingBanners() {
-  const notCorrectAnswerCard = document.createElement("div");
-  notCorrectAnswerCard.classList.add("card");
-  notCorrectAnswerCard.textContent = "Nop! That is not the red square!";
-  const revealAnswerBtn = document.createElement("a");
-  revealAnswerBtn.classList.add("btn", "show-correct-square");
-  revealAnswerBtn.setAttribute("href", "#correct-square");
-  revealAnswerBtn.textContent = "Show me the red square!";
-  document.body.appendChild(revealAnswerBtn);
-  document.body.appendChild(notCorrectAnswerCard);
-  revealAnswerBtn.addEventListener("click", () => {
-    (revealAnswerBtn.style.opacity = "0"),
-      (notCorrectAnswerCard.style.opacity = "0");
-    setTimeout(() => {
-      document.body.removeChild(revealAnswerBtn);
-    }, 400);
-  });
 }
 
 export function showPlayButton(btn) {

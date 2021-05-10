@@ -1,12 +1,12 @@
 import {
-  checkAreHelpingBannersNeeded,
   showPlayButton,
   message,
   displayWrongSquare,
   disableInputField,
   chooseRandomNumber,
   showResetButton,
-  getRandomNumberInRange
+  getRandomNumberInRange,
+  isElementInViewport
 } from "./helpers.js";
 
 const inputValue = document.querySelector("#odds-value");
@@ -15,7 +15,7 @@ const playBtn = document.querySelector("#btn");
 const main = document.querySelector("main");
 const percents = document.querySelector(".percent-value");
 const gameSizeNumber = document.getElementById("game-size");
-const descriptionField = document.querySelector(".description");
+const footer = document.querySelector("footer");
 let squaresArray = [];
 
 let guessIsMade = false;
@@ -23,12 +23,12 @@ let randomNumber = 0;
 let sizeOfGameField = 0;
 
 window.onload = (e) => {
-  const randomGameField = getRandomNumberInRange(100, 500);
-  const percentage = parseFloat((1 / randomGameField * 100).toFixed(2));
+  randomNumber = getRandomNumberInRange(100, 500);
+  const percentage = parseFloat((1 / randomNumber * 100).toFixed(2));
   percents.textContent = `${percentage}%`;
-  createGameField(randomGameField);
-  inputValue.value = randomGameField;
-  gameSizeNumber.textContent = randomGameField;
+  createGameField(randomNumber);
+  inputValue.value = randomNumber;
+  gameSizeNumber.textContent = randomNumber;
   updateMessageToUser(message.startGame);
 };
 
@@ -76,6 +76,8 @@ window.addEventListener("keyup", (e) => {
 
 function createGameField(numberOfSquares) {
   disableInputField(inputValue);
+  inputValue.value = numberOfSquares;
+  inputValue.style.color = "#fff";
   createSquares(numberOfSquares);
   gameSizeNumber.textContent = numberOfSquares;
   const percentage = parseFloat((1 / numberOfSquares * 100).toFixed(2));
@@ -100,10 +102,20 @@ function checkAnswer(event) {
     } else {
       updateMessageToUser(message.wrongGuess);
       displayWrongSquare(currentSquare);
-      checkAreHelpingBannersNeeded(correctSquare);
+      // checkAreHelpingBannersNeeded(correctSquare);
     }
     guessIsMade = true;
     showResetButton(playBtn);
+    if(!isElementInViewport(inputValue)) {
+      const toTheTopBtn = document.createElement('a');
+      toTheTopBtn.setAttribute("id", "to-top-btn")
+      toTheTopBtn.setAttribute("href","#odds-value");
+      toTheTopBtn.textContent = "To the top!"
+      footer.appendChild(toTheTopBtn);
+      toTheTopBtn.addEventListener('click', ()=> {
+        footer.removeChild(toTheTopBtn);
+      })
+    }
   }
 }
 

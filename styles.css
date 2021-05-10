@@ -48,6 +48,7 @@ ul {
 ul li {
   list-style: none;
   transition: 0.2s ease-in;
+  text-align: center;
   /* list-style-position: inside; */
 }
 
@@ -88,7 +89,7 @@ input {
   outline: none;
   color: black;
   transition: 0.5s;
-  box-shadow: inset 0 0 0px 6px rgba(255, 255, 255, 0.5),
+  box-shadow: inset 0 -2px 0px 6px rgba(255, 255, 255, 0.5),
     0 2px 0px 6px rgba(255, 255, 255, 0.1), 0 2px 0px 4px rgba(255, 255, 255, 0.2), 0 2px 0px 3px rgba(255, 255, 255, 0.3), 0 2px 0px 2px rgba(255, 255, 255, 0.4);
   border-radius: 10px;
   text-align: center;
@@ -195,10 +196,12 @@ input {
   flex-wrap: wrap;
   justify-content: center;
   background: rgb(49, 235, 225);
+  max-width: 650px;
+  min-width: 450px;
 }
 .square {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   background-color: blue;
   margin: 2px;
   transition: 0.05s ease-in-out;
@@ -214,8 +217,8 @@ input {
 }
 #correct-square {
   background: red;
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   animation: pulsate 0.8s 10;
 }
 .wrong-square {
@@ -223,8 +226,8 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   overflow: hidden;
 }
 .cross {
@@ -265,11 +268,16 @@ footer {
   color: blue;
   background: orange;
   position: fixed;
-  bottom: 0px;
-  right: 0;
+  top: 10px;
+  right: 10px;
   padding: 0.5em;
   transition: 0.3s;
   z-index: 5;
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+  font-size: 0.8em;
+  letter-spacing: normal;
+  line-height: normal;
 }
 
 #to-top-btn:hover {
@@ -285,20 +293,29 @@ footer {
   body {
     font-size: 14px;
   }
+  .square, #correct-square, .wrong-square {
+    height: 20px;
+    width: 20px;
+  }
   .value-container {
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
+ 
   #user-value {
     width: 50%;
+    font-size: 2rem;
   }
   #odds-value {
-    font-size: 0.9rem;
+    font-size: 1rem;
     padding: 0.4em;
     margin: 0.5em 0;
   }
   #odds-value::placeholder {
     font-size: 0.7rem;
+  }
+  .word-in {
+    font-size: 2rem;
   }
 }
