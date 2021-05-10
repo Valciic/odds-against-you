@@ -23,12 +23,12 @@ let randomNumber = 0;
 let sizeOfGameField = 0;
 
 window.onload = (e) => {
-  randomNumber = getRandomNumberInRange(100, 500);
-  const percentage = parseFloat((1 / randomNumber * 100).toFixed(2));
+  sizeOfGameField = getRandomNumberInRange(100, 500);
+  const percentage = parseFloat((1 / sizeOfGameField * 100).toFixed(2));
   percents.textContent = `${percentage}%`;
-  createGameField(randomNumber);
-  inputValue.value = randomNumber;
-  gameSizeNumber.textContent = randomNumber;
+  createGameField(sizeOfGameField);
+  inputValue.value = sizeOfGameField;
+  gameSizeNumber.textContent = sizeOfGameField;
   updateMessageToUser(message.startGame);
 };
 
