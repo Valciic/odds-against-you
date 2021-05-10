@@ -105,7 +105,10 @@ function checkAnswer(event) {
       updateMessageToUser(message.wrongGuess);
       displayWrongSquare(currentSquare);
       if(!isElementInViewport(correctSquare)) {
-        modalOverlay.style.display = "block";
+        setTimeout(()=>{
+          modalOverlay.style.display = "block";
+        }, 500)
+        
         modalBtnShow.addEventListener('click', ()=> {
           showTheRedSquare(correctSquare);
           modalOverlay.style.display = "none";
