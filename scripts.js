@@ -6,6 +6,8 @@ import {
   chooseRandomNumber,
   showResetButton,
   getRandomNumberInRange,
+  isElementInViewport,
+  showTheRedSquare
 } from "./helpers.js";
 
 const inputField = document.querySelector("#odds-value");
@@ -15,6 +17,10 @@ const main = document.querySelector("main");
 const percents = document.querySelector(".percent-value");
 const gameSizeNumber = document.getElementById("game-size");
 const toTheTopBtn = document.getElementById('to-top-btn');
+const modalOverlay = document.querySelector('.modal-overlay')
+const modalBtnShow = document.getElementById('show')
+const modalBtnDoNotShow = document.getElementById('do-not-show');
+
 let squaresArray = [];
 
 let guessIsMade = false;
@@ -51,7 +57,7 @@ inputField.addEventListener("keyup", (e) => {
     updateMessageToUser(message.playAgain);
   } else {
     showPlayButton(btn);
-    updateMessageToUser(" ");
+    updateMessageToUser(message.clickToStart);
   }
   if (e.key === "Enter" && inputValueIsValidated(sizeOfGameField)) {
     createGameField(sizeOfGameField);
@@ -70,7 +76,8 @@ window.addEventListener("keyup", (e) => {
   if (e.key === "Enter") checkAnswer(e);
 });
 window.onscroll = function() {scrollFunction()};
-toTheTopBtn.addEventListener('click', topFunction)
+toTheTopBtn.addEventListener('click', topFunction);
+
 
 
 function createGameField(numberOfSquares) {
@@ -97,6 +104,18 @@ function checkAnswer(event) {
     } else {
       updateMessageToUser(message.wrongGuess);
       displayWrongSquare(currentSquare);
+      if(!isElementInViewport(correctSquare)) {
+        modalOverlay.style.display = "block";
+        modalBtnShow.addEventListener('click', ()=> {
+          showTheRedSquare(correctSquare);
+          modalOverlay.style.display = "none";
+        })
+        modalBtnDoNotShow.addEventListener('click', ()=>{
+          playBtn.focus();
+          modalOverlay.style.display = "none";
+        })
+      }
+
     }
     guessIsMade = true;
     showResetButton(playBtn);
@@ -171,3 +190,4 @@ function topFunction() {
   document.body.scrollTop = 0; // For Safari
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
+

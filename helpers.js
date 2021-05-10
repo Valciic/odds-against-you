@@ -10,7 +10,20 @@ export const message = {
   luckyGuess: "Wow! That was good guess indeed! Go buy a lottery ticket!",
   playAgain: "Enter the number to play again!",
   startGame: "Choose a square and click it to flip!",
+  clickToStart: "Click \"Go!\" or press \"Enter\" to play!"
 };
+
+export function isElementInViewport(el) {
+  var rect = el.getBoundingClientRect();
+
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <=
+      (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
 
 export function showPlayButton(btn) {
   btn.classList.remove("hide-btn");
@@ -42,4 +55,8 @@ export function getRandomNumberInRange(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+export function showTheRedSquare(redSquare) {
+  redSquare.focus()
 }

@@ -20,7 +20,10 @@
       <div class="text-container">
         <p class="description">
           Odds of you finding the red square in the field of blue ones are
-          <strong>1 in <span id="game-size"></span></strong> (<em class="percent-value">0.3%</em> ). Can you do it?
+          <strong>1 in <span id="game-size"></span></strong> (<em
+            class="percent-value"
+          ></em>
+          ). Can you do it?
         </p>
       </div>
       <div class="action-container">
@@ -41,10 +44,20 @@
         <button id="btn" class="hide-btn show-btn play">Go!</button>
       </div>
       <button id="to-top-btn">☝</button>
-
       <ul>
         <li id="message"></li>
       </ul>
+      <div class="modal-overlay">
+        <div class="modal">
+          <p class="modal-text">
+            You did not find the red square! Do you want to see where it is?
+          </p>
+          <div class="btn-container">
+            <button id="show" class="modal-button">Show me</button>
+            <button id="do-not-show" class="modal-button">Do not show</button>
+          </div>
+        </div>
+      </div>
     </main>
     <footer>
       <p>
