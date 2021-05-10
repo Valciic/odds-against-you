@@ -197,7 +197,7 @@ input {
   justify-content: center;
   background: rgb(49, 235, 225);
   max-width: 650px;
-  min-width: 450px;
+  min-width: 250px;
 }
 .square {
   width: 25px;
@@ -264,24 +264,25 @@ footer {
   margin-left: 2em;
 }
 #to-top-btn {
-  text-decoration: none;
   color: blue;
-  background: orange;
+  background: red;
   position: fixed;
-  top: 10px;
-  right: 10px;
-  padding: 0.5em;
+  bottom: 20px;
+  right: 30px;
+  padding: 1.8em 0.7em;
   transition: 0.3s;
   z-index: 5;
-  writing-mode: vertical-lr;
-  text-orientation: upright;
-  font-size: 0.8em;
-  letter-spacing: normal;
-  line-height: normal;
+  font-weight: 900;
+  font-size: 1rem;
+  display: none;
+  border-radius: 30px 30px 0 0;
 }
 
 #to-top-btn:hover {
-  transform: scale(1.1);
+  transform: scaleY(1.1) translateY(-7px);
+  cursor: pointer;
+  background-color: orange;
+  border-radius: 50px 50px 20px 20px;
 }
 #to-top-btn:focus {
   outline: none;

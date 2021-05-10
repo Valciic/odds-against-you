@@ -6,16 +6,15 @@ import {
   chooseRandomNumber,
   showResetButton,
   getRandomNumberInRange,
-  isElementInViewport
 } from "./helpers.js";
 
-const inputValue = document.querySelector("#odds-value");
+const inputField = document.querySelector("#odds-value");
 const messageToUser = document.querySelector("#message");
 const playBtn = document.querySelector("#btn");
 const main = document.querySelector("main");
 const percents = document.querySelector(".percent-value");
 const gameSizeNumber = document.getElementById("game-size");
-const footer = document.querySelector("footer");
+const toTheTopBtn = document.getElementById('to-top-btn');
 let squaresArray = [];
 
 let guessIsMade = false;
@@ -24,11 +23,8 @@ let sizeOfGameField = 0;
 
 window.onload = (e) => {
   sizeOfGameField = getRandomNumberInRange(100, 500);
-  const percentage = parseFloat((1 / sizeOfGameField * 100).toFixed(2));
-  percents.textContent = `${percentage}%`;
   createGameField(sizeOfGameField);
-  inputValue.value = sizeOfGameField;
-  gameSizeNumber.textContent = sizeOfGameField;
+  displayGameNumbers(sizeOfGameField);
   updateMessageToUser(message.startGame);
 };
 
@@ -38,8 +34,8 @@ playBtn.addEventListener("click", function (e) {
     resetGame();
     return;
   }
-  if (inputValueIsValidated(inputValue.value)) {
-    sizeOfGameField = Math.round(inputValue.value);
+  if (inputValueIsValidated(inputField.value)) {
+    sizeOfGameField = Math.round(inputField.value);
     createGameField(sizeOfGameField);
   }
 });
@@ -47,9 +43,9 @@ playBtn.addEventListener("keyup", (e) => {
   if (e.key === "Enter" && button.classList.contains("reset")) resetGame();
 });
 
-inputValue.addEventListener("keyup", (e) => {
+inputField.addEventListener("keyup", (e) => {
   playBtn.classList.remove("reset");
-  sizeOfGameField = Math.round(inputValue.value);
+  sizeOfGameField = Math.round(inputField.value);
   if (!sizeOfGameField) {
     playBtn.classList.add("hide-btn");
     updateMessageToUser(message.playAgain);
@@ -61,8 +57,8 @@ inputValue.addEventListener("keyup", (e) => {
     createGameField(sizeOfGameField);
   }
 });
-inputValue.addEventListener("click", () => {
-  if (inputValue.value) {
+inputField.addEventListener("click", () => {
+  if (inputValueIsValidated(inputField.value)) {
     showPlayButton(playBtn);
     updateMessageToUser(" ");
   }
@@ -73,15 +69,14 @@ window.addEventListener("click", (e) => {
 window.addEventListener("keyup", (e) => {
   if (e.key === "Enter") checkAnswer(e);
 });
+window.onscroll = function() {scrollFunction()};
+toTheTopBtn.addEventListener('click', topFunction)
+
 
 function createGameField(numberOfSquares) {
-  disableInputField(inputValue);
-  inputValue.value = numberOfSquares;
-  inputValue.style.color = "#fff";
+  disableInputField(inputField);
   createSquares(numberOfSquares);
-  gameSizeNumber.textContent = numberOfSquares;
-  const percentage = parseFloat((1 / numberOfSquares * 100).toFixed(2));
-  percents.textContent = `${percentage}%`;
+  displayGameNumbers(numberOfSquares);
   randomNumber = chooseRandomNumber(numberOfSquares);
   playBtn.classList.add("hide-btn");
   updateMessageToUser(message.startGame);
@@ -102,20 +97,9 @@ function checkAnswer(event) {
     } else {
       updateMessageToUser(message.wrongGuess);
       displayWrongSquare(currentSquare);
-      // checkAreHelpingBannersNeeded(correctSquare);
     }
     guessIsMade = true;
     showResetButton(playBtn);
-    if(!isElementInViewport(inputValue)) {
-      const toTheTopBtn = document.createElement('a');
-      toTheTopBtn.setAttribute("id", "to-top-btn")
-      toTheTopBtn.setAttribute("href","#odds-value");
-      toTheTopBtn.textContent = "To the top!"
-      footer.appendChild(toTheTopBtn);
-      toTheTopBtn.addEventListener('click', ()=> {
-        footer.removeChild(toTheTopBtn);
-      })
-    }
   }
 }
 
@@ -135,21 +119,16 @@ function createSquares(size) {
 function resetGame() {
   const grid = document.querySelector(".grid");
   const squares = document.querySelectorAll(".square");
-  const yellowBtn = document.querySelector(".show-correct-square");
-  const card = document.querySelector(".card");
-  if (document.body.contains(yellowBtn)) document.body.removeChild(yellowBtn);
-  if (document.body.contains(card)) document.body.removeChild(card);
   squares.forEach((square) => grid.removeChild(square));
   main.removeChild(grid);
   guessIsMade = false;
   updateMessageToUser(message.playAgain);
-  inputValue.disabled = false;
-  inputValue.style.color = "#000";
-  inputValue.value = "";
-  inputValue.focus();
+  inputField.disabled = false;
+  inputField.style.color = "#000";
+  inputField.value = "";
+  inputField.focus();
   squaresArray.length = 0;
   playBtn.classList.add("hide-btn");
-
 }
 
 function updateMessageToUser(message) {
@@ -157,17 +136,38 @@ function updateMessageToUser(message) {
 }
 
 function inputValueIsValidated(value) {
-  if (!value || value === NaN) {
+  if(!value) {
     updateMessageToUser(message.inputFieldEmpty);
-    inputValue.focus();
+    inputField.focus();
     return false;
   }
   if (Math.round(value) < 2) {
     updateMessageToUser(message.valueGreaterThanTwo);
-    inputValue.focus();
+    inputField.focus();
     return false;
   }
-
-
   return true;
+}
+
+
+function displayGameNumbers(number) {
+  gameSizeNumber.textContent = number;
+  const percentage = parseFloat((1 / number * 100).toFixed(2));
+  percents.textContent = `${percentage}%`;
+  inputField.value = number;
+  inputField.style.color = "#fff";
+}
+
+
+function scrollFunction() {
+  if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+    toTheTopBtn.style.display = "block";
+  } else {
+    toTheTopBtn.style.display = "none";
+  }
+}
+
+function topFunction() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
