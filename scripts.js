@@ -35,8 +35,7 @@ window.onload = (e) => {
 };
 
 playBtn.addEventListener("click", function (e) {
-  const button = e.target;
-  if (button.classList.contains("reset")) {
+  if (e.target.classList.contains("reset")) {
     resetGame();
     return;
   }
@@ -45,12 +44,8 @@ playBtn.addEventListener("click", function (e) {
     createGameField(sizeOfGameField);
   }
 });
-playBtn.addEventListener("keyup", (e) => {
-  if (e.key === "Enter" && button.classList.contains("reset")) resetGame();
-});
 
 inputField.addEventListener("keyup", (e) => {
-  playBtn.classList.remove("reset");
   sizeOfGameField = Math.round(inputField.value);
   if (!sizeOfGameField) {
     playBtn.classList.add("hide-btn");
@@ -151,6 +146,8 @@ function resetGame() {
   inputField.focus();
   squaresArray.length = 0;
   playBtn.classList.add("hide-btn");
+  playBtn.classList.remove("reset");
+
 }
 
 function updateMessageToUser(message) {
