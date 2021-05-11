@@ -251,6 +251,7 @@ input {
 #btn:focus {
   background-color: black;
   color: yellow;
+  cursor: pointer;
 }
 #btn:active {
   transform: translateY(3px);
