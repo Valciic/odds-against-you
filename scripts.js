@@ -7,19 +7,20 @@ import {
   showResetButton,
   getRandomNumberInRange,
   isElementInViewport,
-  showTheRedSquare
+  showTheRedSquare,
 } from "./helpers.js";
 
 const inputField = document.querySelector("#odds-value");
 const messageToUser = document.querySelector("#message");
 const playBtn = document.querySelector("#btn");
 const main = document.querySelector("main");
+const grid = document.querySelector(".grid");
 const percents = document.querySelector(".percent-value");
 const gameSizeNumber = document.getElementById("game-size");
-const toTheTopBtn = document.getElementById('to-top-btn');
-const modalOverlay = document.querySelector('.modal-overlay')
-const modalBtnShow = document.getElementById('show')
-const modalBtnDoNotShow = document.getElementById('do-not-show');
+const toTheTopBtn = document.getElementById("to-top-btn");
+const modalOverlay = document.querySelector(".modal-overlay");
+const modalBtnShow = document.getElementById("show");
+const modalBtnDoNotShow = document.getElementById("do-not-show");
 
 let squaresArray = [];
 
@@ -39,7 +40,7 @@ playBtn.addEventListener("click", function (e) {
     resetGame();
     return;
   }
-  if (inputValueIsValidated(inputField.value)) {
+  if (inputValueIsValid(inputField.value)) {
     sizeOfGameField = Math.round(inputField.value);
     createGameField(sizeOfGameField);
   }
@@ -54,12 +55,12 @@ inputField.addEventListener("keyup", (e) => {
     showPlayButton(btn);
     updateMessageToUser(message.clickToStart);
   }
-  if (e.key === "Enter" && inputValueIsValidated(sizeOfGameField)) {
+  if (e.key === "Enter" && inputValueIsValid(sizeOfGameField)) {
     createGameField(sizeOfGameField);
   }
 });
 inputField.addEventListener("click", () => {
-  if (inputValueIsValidated(inputField.value)) {
+  if (inputValueIsValid(inputField.value)) {
     showPlayButton(playBtn);
     updateMessageToUser(" ");
   }
@@ -70,10 +71,16 @@ window.addEventListener("click", (e) => {
 window.addEventListener("keyup", (e) => {
   if (e.key === "Enter") checkAnswer(e);
 });
-window.onscroll = function() {scrollFunction()};
-toTheTopBtn.addEventListener('click', topFunction);
+window.onscroll = function () {
+  scrollFunction();
+};
+toTheTopBtn.addEventListener("click", topFunction);
 
 
+modalBtnDoNotShow.addEventListener("click", () => {
+  playBtn.focus();
+  modalOverlay.style.display = "none";
+});
 
 function createGameField(numberOfSquares) {
   disableInputField(inputField);
@@ -99,21 +106,15 @@ function checkAnswer(event) {
     } else {
       updateMessageToUser(message.wrongGuess);
       displayWrongSquare(currentSquare);
-      if(!isElementInViewport(correctSquare)) {
-        setTimeout(()=>{
+      if (!isElementInViewport(correctSquare)) {
+        setTimeout(() => {
           modalOverlay.style.display = "block";
-        }, 500)
-        
-        modalBtnShow.addEventListener('click', ()=> {
+        }, 500);
+        modalBtnShow.addEventListener("click", () => {
           showTheRedSquare(correctSquare);
           modalOverlay.style.display = "none";
-        })
-        modalBtnDoNotShow.addEventListener('click', ()=>{
-          playBtn.focus();
-          modalOverlay.style.display = "none";
-        })
+        });
       }
-
     }
     guessIsMade = true;
     showResetButton(playBtn);
@@ -121,9 +122,7 @@ function checkAnswer(event) {
 }
 
 function createSquares(size) {
-  const grid = document.createElement("div");
-  grid.classList.add("grid");
-  main.appendChild(grid);
+  grid.style.minHeight = "0";
   for (let i = 0; i < size; i++) {
     const square = document.createElement("a");
     square.classList.add("square");
@@ -134,10 +133,9 @@ function createSquares(size) {
 }
 
 function resetGame() {
-  const grid = document.querySelector(".grid");
+  grid.style.minHeight = "200px";
   const squares = document.querySelectorAll(".square");
   squares.forEach((square) => grid.removeChild(square));
-  main.removeChild(grid);
   guessIsMade = false;
   updateMessageToUser(message.playAgain);
   inputField.disabled = false;
@@ -147,36 +145,33 @@ function resetGame() {
   squaresArray.length = 0;
   playBtn.classList.add("hide-btn");
   playBtn.classList.remove("reset");
-
 }
 
 function updateMessageToUser(message) {
   messageToUser.textContent = message;
 }
 
-function inputValueIsValidated(value) {
-  if(!value) {
-    updateMessageToUser(message.inputFieldEmpty);
+function inputValueIsValid(value) {
+  if (Math.round(value) >= 0 && Math.round(value) < 2 && value.toString().length > 0){
+    updateMessageToUser(message.valueGreaterThanTwo);
     inputField.focus();
     return false;
   }
-  if (Math.round(value) < 2) {
-    updateMessageToUser(message.valueGreaterThanTwo);
+  if (!value) {
+    updateMessageToUser(message.inputFieldEmpty);
     inputField.focus();
     return false;
   }
   return true;
 }
 
-
 function displayGameNumbers(number) {
   gameSizeNumber.textContent = number;
-  const percentage = parseFloat((1 / number * 100).toFixed(2));
+  const percentage = parseFloat(((1 / number) * 100).toFixed(2));
   percents.textContent = `${percentage}%`;
   inputField.value = number;
   inputField.style.color = "#fff";
 }
-
 
 function scrollFunction() {
   if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
@@ -190,4 +185,3 @@ function topFunction() {
   document.body.scrollTop = 0; // For Safari
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
-

@@ -16,20 +16,14 @@
     <header>
       <h1 class="title" id="top-of-page">Find the red square!</h1>
     </header>
-    <main>
       <div class="text-container">
-        <p class="description">
-          Odds of you finding the red square in the field of blue ones are
-          <strong>1 in <span id="game-size"></span></strong> (<em
-            class="percent-value"
-          ></em>
-          ). Can you do it?
-        </p>
+        Odds of you finding the red square in the field of blue ones are
+        <strong>1 in <span id="game-size"></span></strong> (<em><span class="percent-value"></span></em>
+        ). Can you do it?
       </div>
       <div class="action-container">
         <div class="value-container">
-          <input type="text" id="user-value" value="1" disabled />
-          <p class="word-in"><strong>in</strong></p>
+          <p class="word-in"><span id="number-one">1</span><span>in</span></p>
           <input
             type="number"
             name="odds-value"
@@ -44,9 +38,7 @@
         <button id="btn" class="hide-btn show-btn play">Go!</button>
       </div>
       <button id="to-top-btn">🠕</button>
-      <ul>
-        <li id="message"></li>
-      </ul>
+      <p id="message"></p>
       <div class="modal-overlay">
         <div class="modal">
           <p class="modal-text">
@@ -54,10 +46,13 @@
           </p>
           <div class="btn-container">
             <button id="show" class="modal-button" tabindex="0">Show me</button>
-            <button id="do-not-show" class="modal-button" tabindex="0">Do not show</button>
+            <button id="do-not-show" class="modal-button" tabindex="0">
+              Do not show
+            </button>
           </div>
         </div>
-      </div>
+      </div> <!--Modal div end-->
+      <div class="grid"></div>
     </main>
     <footer>
       <p>
