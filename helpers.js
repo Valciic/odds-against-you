@@ -1,7 +1,3 @@
-export const hello = () => {
-  console.log("Hello from helpers!");
-};
-
 export const message = {
   inputFieldEmpty: "Enter number in the input field (min=2, max=99999).",
   valueGreaterThanTwo:
@@ -29,11 +25,17 @@ export function showPlayButton(btn) {
   btn.classList.remove("hide-btn");
   btn.textContent = "Go!";
   btn.classList.remove("reset");
+  btn.removeAttribute("disabled");
+}
+export function hideButton(btn) {
+  btn.classList.add("hide-btn");
+  btn.setAttribute("disabled","true");
 }
 
 export function showResetButton(btn) {
   btn.classList.add("reset");
   btn.classList.remove("hide-btn");
+  btn.removeAttribute("disabled");
   btn.textContent = "Play again?";
 }
 
@@ -44,10 +46,6 @@ export function displayWrongSquare(square) {
   square.appendChild(cross);
 }
 
-export function disableInputField(inputValue) {
-  inputValue.value = "";
-  inputValue.disabled = true;
-}
 export function chooseRandomNumber(max) {
   return Math.floor(Math.random() * max);
 }
@@ -55,8 +53,4 @@ export function getRandomNumberInRange(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-export function showTheRedSquare(redSquare) {
-  redSquare.focus()
 }
