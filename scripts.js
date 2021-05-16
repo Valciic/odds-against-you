@@ -50,6 +50,7 @@ inputField.addEventListener("input", () => {
 });
 inputField.addEventListener("keypress", (e) => {
   if (e.key === "Enter" && inputValueIsValid(inputField.value)) {
+    
     sizeOfGameField = Math.round(inputField.value);
     createGameField(sizeOfGameField);
   }
@@ -82,6 +83,7 @@ modalBtnDoNotShow.addEventListener("click", () => {
 });
 
 function createGameField(numberOfSquares) {
+  inputField.disabled = true;
   createSquares(numberOfSquares);
   displayGameNumbers(numberOfSquares);
   randomNumber = chooseRandomNumber(numberOfSquares);
@@ -99,6 +101,7 @@ function checkAnswer(currentSquare) {
   correctSquare.setAttribute("id", "correct-square");
   if (squaresArray.indexOf(currentSquare) === randomNumber) {
     updateMessageToUser(message.luckyGuess);
+    
   } else {
     updateMessageToUser(message.wrongGuess);
     displayWrongSquare(currentSquare);
@@ -114,6 +117,7 @@ function checkAnswer(currentSquare) {
   }
   guessIsMade = true;
   showResetButton(gameBtn);
+  gameBtn.focus();
 }
 
 function createSquares(size) {
@@ -132,6 +136,7 @@ function resetGame() {
   grid.innerHTML = "";
   guessIsMade = false;
   updateMessageToUser(message.playAgain);
+  inputField.disabled = false;
   inputField.focus();
   squaresArray.length = 0;
   showPlayButton(gameBtn);
